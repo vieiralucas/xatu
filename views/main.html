@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active text-center title"><a>History</a></li>
+                <li class="history" ng-repeat="hist in mainCtrl.history | orderBy:'-date'">
+                    <a>
+                        <div ng-click="mainCtrl.copyHist(hist)" class="content">{{hist.method}} - {{hist.url}}</div>
+                        <div ng-click="mainCtrl.deleteHist($index)" class="remove glyphicon glyphicon-remove"></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 col-md-offset-3 main">
+            <div class="row">
+                <div class="col-md-12">
+                    <form ng-submit="mainCtrl.go()">
+                        <div class="row">
+                            <div class="col-md-7 form-group">
+                                <label for="url">URL</label>
+                                <input type="text" id="url" class="form-control" placeholder="http://somedomain.com" ng-model="mainCtrl.current.url">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="method">METHOD</label>
+                                    <select id="method" class="form-control" ng-model="mainCtrl.current.method">
+                                        <option value="GET">GET</option>
+                                        <option value="HEAD">HEAD</option>
+                                        <option value="POST">POST</option>
+                                        <option value="PUT">PUT</option>
+                                        <option value="DELETE">DELETE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary go">Go!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center fa fa-spin fa-circle-o-notch fa-5x space-up" ng-show="mainCtrl.loading"></div>
+                <div class="col-md-12" ng-hide="mainCtrl.loading">
+                    <xt-hljs input="{{mainCtrl.response}}"></xt-hljs>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
