@@ -1,6 +1,7 @@
 {
   "name": "xatu",
-  "version": "0.1.0",
+  "description": "xatu is an gui wrapper for making http requests",
+  "version": "0.1.1",
   "main": "main.js",
   "engines": {
     "node": ">=0.10.0"
@@ -8,6 +9,7 @@
   "bin": {
     "xatu": "./bin/xatu"
   },
+  "preferGlobal": true,
   "dependencies": {
     "electron-prebuilt": "^0.30.4"
   }
