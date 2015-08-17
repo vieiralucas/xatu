@@ -1,7 +1,7 @@
 {
   "name": "xatu",
   "description": "xatu is an gui wrapper for making http requests",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "main": "main.js",
   "engines": {
     "node": ">=0.10.0"
