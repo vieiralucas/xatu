@@ -2,8 +2,13 @@
   "name": "xatu",
   "version": "0.1.0",
   "main": "main.js",
-  "private": true,
   "engines": {
     "node": ">=0.10.0"
+  },
+  "bin": {
+    "xatu": "./bin/xatu"
+  },
+  "dependencies": {
+    "electron-prebuilt": "^0.30.4"
   }
 }
