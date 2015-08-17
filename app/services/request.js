@@ -11,41 +11,24 @@
             request: request
         };
 
-        function request(url, method) {
-            switch(method) {
-            case 'GET':
-                return _get(url);
-            case 'HEAD':
-                return _head(url);
-            case 'POST':
-                return _post(url);
-            case 'PUT':
-                return _put(url);
-            case 'DELETE':
-                return _delete(url);
-            }
+        function request(request) {
+            var deffered = $q.defer();
 
-            return $q.reject('invalid method');
+            $http(request).then(function(response) {
+                deffered.resolve(stringify(response.data));
+            }).catch(function(err) {
+                deffered.reject(err);
+            });
+
+            return deffered.promise;
         }
 
-        function _get(url) {
-            return $http.get(url);
-        }
+        function stringify(data) {
+            try {
+                data = JSON.stringify(data, null, '  ');
+            } catch(e) {}
 
-        function _head(url) {
-            return $q.reject('unimplemented');
-        }
-
-        function _post(url) {
-            return $q.reject('unimplemented');
-        }
-
-        function _put(url) {
-            return $q.reject('unimplemented');
-        }
-
-        function _delete(url) {
-            return $q.reject('unimplemented');
+            return data;
         }
     }
 })();

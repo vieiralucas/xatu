@@ -11,29 +11,24 @@
 
         // set start data
         vm.current = {
+            method: 'GET',
             url: '',
-            method: 'GET'
+            headers: {
+                'Content-Type': 'application/json' 
+            }
         };
         vm.history = setupHistory();
+        vm.newHeader = {
+            key: '',
+            value: ''
+        };
 
         // public api
         vm.go = go;
+        vm.addHeader = addHeader;
+        vm.removeHeader = removeHeader;
         vm.copyHist = copyHist;
         vm.deleteHist = deleteHist;
-
-        function go() {
-            vm.loading = true;
-            $requests.request(vm.current.url, vm.current.method).then(function(response) {
-                vm.response = response.data;
-                vm.history.push({
-                    date: Date.now(),
-                    url: vm.current.url,
-                    method: vm.current.method
-                });
-                $localStorage.history = vm.history;
-                vm.loading = false;
-            });
-        }
 
         function setupHistory() {
             if (!$localStorage.history) {
@@ -41,6 +36,35 @@
             }
 
             return $localStorage.history;
+        }
+
+        function go() {
+            var hist;
+
+            addHeader();
+
+            hist = angular.copy(vm.current)
+            vm.loading = true;
+            $requests.request(vm.current).then(function(response) {
+                vm.response = response;
+                hist.date = Date.now();
+                vm.history.push(hist);
+                $localStorage.history = vm.history;
+                vm.loading = false;
+            });
+        }
+
+        function addHeader() {
+            if (vm.newHeader.key.length > 0 && vm.newHeader.value.length > 0) {
+                vm.current.headers[vm.newHeader.key] = vm.newHeader.value;
+                vm.newHeader.key = '';
+                vm.newHeader.value = '';
+            }
+        }
+
+        function removeHeader(key) {
+            console.log(key);
+            delete vm.current.headers[key];
         }
 
         function copyHist(hist) {

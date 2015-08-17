@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('xatu', ['ngRoute', 'hljs', 'ngStorage'])
+        .module('xatu', ['ngRoute', 'hljs', 'ngStorage', 'ui.bootstrap'])
         .config(Config);
 
     Config.$inject = ['$routeProvider', '$locationProvider'];

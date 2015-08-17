@@ -33,12 +33,53 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary go">Go!</button>
+                                <button type="submit" class="btn btn-primary small-space-up">Go!</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <tabset>
+                        <tab heading="Headers">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-5 form-group">
+                                    <label>Key</label>
+                                    <input type="text" class="form-control" ng-model="mainCtrl.newHeader.key">
+                                </div>
+                                <div class="col-md-5 form-group">
+                                    <label>Value</label>
+                                    <input type="text" class="form-control" ng-model="mainCtrl.newHeader.value">
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-success small-space-up" ng-click="mainCtrl.addHeader()">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden=true></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row" ng-repeat="(key, value) in mainCtrl.current.headers">
+                                <div class="col-md-offset-1 col-md-5 form-group">
+                                    <input type="text" class="form-control" ng-model="key">
+                                </div>
+                                <div class="col-md-5 form-group">
+                                    <input type="text" class="form-control" ng-model="value">
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-danger" ng-click="mainCtrl.removeHeader(key)">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden=true></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Payload" disabled="mainCtrl.current.method !== 'POST' && mainCtrl.current.method !== 'PUT'">
+                            TODO
+                        </tab>
+                    </tabset>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12 text-center fa fa-spin fa-circle-o-notch fa-5x space-up" ng-show="mainCtrl.loading"></div>
                 <div class="col-md-12" ng-hide="mainCtrl.loading">
